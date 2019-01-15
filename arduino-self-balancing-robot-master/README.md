@@ -1,3 +1,7 @@
+### SDP_NOTES ###
+Added here for C++ code template for self balancing mechanism
+#################
+
 # Arduino Self-Balancing Robot
 
 This project is seen on DIYHacking: https://diyhacking.com/build-arduino-self-balancing-robot
