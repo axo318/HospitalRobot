@@ -1,6 +1,5 @@
-### SDP_NOTES ###
+### SDP_NOTE ###
 Added here for C++ code template for self balancing mechanism
-#################
 
 # Arduino Self-Balancing Robot
 
