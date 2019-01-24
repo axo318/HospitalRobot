@@ -24,8 +24,8 @@ public class ReceptionistMenuActivity extends AppCompatActivity {
     }
 
     public void goToSignInActivity(View view) {
-        /*Intent intent = new Intent(ReceptionistMenuActivity.this, SignInActivity.class);
-        ReceptionistMenuActivity.this.startActivity(intent);*/
+        Intent intent = new Intent(ReceptionistMenuActivity.this, SignInActivity.class);
+        ReceptionistMenuActivity.this.startActivity(intent);
     }
 
 }

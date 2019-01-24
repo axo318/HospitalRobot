@@ -93,6 +93,7 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:onClick="userLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -113,6 +114,7 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:onClick="userSignup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,6 +122,7 @@
         app:layout_constraintVertical_bias="0.679" />
 
     <ListView
+        android:id="@+id/SignIn_ListView1"
         android:layout_width="190dp"
         android:layout_height="119dp"
         android:layout_marginBottom="8dp"
