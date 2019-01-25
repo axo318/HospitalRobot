@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,15 @@ public class SignInActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.SignIn_EditText2);
         emailField.setText("");
         passwordField.setText("");
+
+        Button docButton = findViewById(R.id.docButton);
+        docButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, DoctorMenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 

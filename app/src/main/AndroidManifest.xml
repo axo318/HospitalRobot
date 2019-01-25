@@ -18,8 +18,11 @@
         </activity>
         <activity android:name=".ReceptionistMenuActivity" />
         <activity android:name=".PatientInfoActivity" />
-        <activity android:name=".ScheduleActivity"
-            android:label="Schedule Appointment"></activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="Schedule Appointment" />
+        <activity android:name=".DoctorMenuActivity" />
+        <activity android:name=".QuestionsActivity" />
     </application>
 
 </manifest>
