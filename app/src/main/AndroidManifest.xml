@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReceptionistMenuActivity" />
-        <activity android:name=".PatientInfoActivity"></activity>
+        <activity android:name=".PatientInfoActivity" />
+        <activity android:name=".ScheduleActivity"
+            android:label="Schedule Appointment"></activity>
     </application>
 
 </manifest>
