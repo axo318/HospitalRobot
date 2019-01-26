@@ -67,6 +67,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
@@ -75,72 +76,20 @@
         app:layout_constraintVertical_bias="0.108"
         app:srcCompat="@android:drawable/ic_delete" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="368dp"
-        android:layout_height="394dp"
+    <ListView
+        android:id="@+id/Questions_ListView1"
+        android:layout_width="wrap_content"
+        android:layout_height="339dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.788" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/question1"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="16dp"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="130dp" />
-
-            <TextView
-                android:id="@+id/question2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="16dp"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="130dp" />
-
-            <TextView
-                android:id="@+id/question3"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="16dp"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="130dp" />
-
-            <TextView
-                android:id="@+id/question4"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="16dp"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="130dp" />
-
-            <TextView
-                android:id="@+id/question5"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="16dp"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="130dp" />
-        </LinearLayout>
-    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +24,10 @@ import java.util.ArrayList;
 
 public class QuestionsActivity extends AppCompatActivity {
 
-    public ArrayList questions = new ArrayList(5);
+    public ArrayList<String> questions = new ArrayList();
+    private ListView listView;
+    private ArrayAdapter arrayAdapter;
+    private String chosen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +39,11 @@ public class QuestionsActivity extends AppCompatActivity {
         questions.add("l");
         questions.add("l");
 
-        if (!(questions.size() == 0)) {
-            populateScroll();
-        }
         ImageButton addButton = findViewById(R.id.addButton);
-        ImageButton deleteButton = findViewById(R.id.deleteButton);
+        final ImageButton deleteButton = findViewById(R.id.deleteButton);
+
+
+        populateList();
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +67,7 @@ public class QuestionsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             questions.add(input.getText().toString());
-                            populateScroll();
+                            populateList();
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -73,65 +79,48 @@ public class QuestionsActivity extends AppCompatActivity {
 
                     builder.show();
 
-                    populateScroll();
                 }
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if (chosen == "") {
+                   Toast.makeText(QuestionsActivity.this, "Please select a question to remove",
+                           Toast.LENGTH_SHORT).show();
+               }
+               else {
+                   for (int i = 0; i<questions.size(); i++) {
+                       if (questions.get(i).equals(chosen)) {
+                           questions.remove(i);
+                           populateList();
+                       }
+                   }
+               }
+            }
+            });
+
     }
 
 
-    public void populateScroll() {
+    public void populateList() {
 
-        TextView question1 = findViewById(R.id.question1);
-        TextView question2 = findViewById(R.id.question2);
-        TextView question3 = findViewById(R.id.question3);
-        TextView question4 = findViewById(R.id.question4);
-        TextView question5 = findViewById(R.id.question5);
+        chosen = "";
 
-        if (questions.size() == 5) {
-            String q1 = questions.get(0).toString();
-            String q2 = questions.get(1).toString();
-            String q3 = questions.get(2).toString();
-            String q4 = questions.get(3).toString();
-            String q5 = questions.get(4).toString();
+        listView = (ListView) findViewById(R.id.Questions_ListView1);
+        arrayAdapter = new ArrayAdapter(QuestionsActivity.this,
+                R.layout.my_layout, R.id.row_layout, questions);
+        listView.setAdapter(arrayAdapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-            question1.setText(q1);
-            question2.setText(q2);
-            question3.setText(q3);
-            question4.setText(q4);
-            question5.setText(q5);
-        }
-        else if (questions.size() == 4) {
-            String q1 = questions.get(0).toString();
-            String q2 = questions.get(1).toString();
-            String q3 = questions.get(2).toString();
-            String q4 = questions.get(3).toString();
-
-            question1.setText(q1);
-            question2.setText(q2);
-            question3.setText(q3);
-            question4.setText(q4);
-        }
-        else if (questions.size() == 3) {
-            String q1 = questions.get(0).toString();
-            String q2 = questions.get(1).toString();
-            String q3 = questions.get(2).toString();
-
-            question1.setText(q1);
-            question2.setText(q2);
-            question3.setText(q3);
-        }
-        else if (questions.size() == 2) {
-            String q1 = questions.get(0).toString();
-            String q2 = questions.get(1).toString();
-            question1.setText(q1);
-            question2.setText(q2);
-        }
-        else if (questions.size() == 1) {
-            String q1 = questions.get(0).toString();
-            question1.setText(q1);
-        }
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final ImageButton deleteButton = findViewById(R.id.deleteButton);
+                deleteButton.setVisibility(View.VISIBLE);
+                chosen = ((TextView) view).getText().toString();
+            }
+        });
     }
 }
