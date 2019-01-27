@@ -34,10 +34,10 @@ public class QuestionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
-        questions.add("H");
-        questions.add("e");
-        questions.add("l");
-        questions.add("l");
+        questions.add("Do you smoke?");
+        questions.add("Do you drink more than 14 units a week?");
+        questions.add("Do you exercise more than three times a week?");
+        questions.add("Have your symptoms worsened since your last visit?");
 
         ImageButton addButton = findViewById(R.id.addButton);
         final ImageButton deleteButton = findViewById(R.id.deleteButton);
@@ -110,7 +110,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.Questions_ListView1);
         arrayAdapter = new ArrayAdapter(QuestionsActivity.this,
-                R.layout.my_layout, R.id.row_layout, questions);
+                R.layout.questions_layout, R.id.row_layout, questions);
         listView.setAdapter(arrayAdapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
@@ -119,6 +119,8 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final ImageButton deleteButton = findViewById(R.id.deleteButton);
                 deleteButton.setVisibility(View.VISIBLE);
+                TextView delLabel = findViewById(R.id.delLabel);
+                delLabel.setVisibility(View.VISIBLE);
                 chosen = ((TextView) view).getText().toString();
             }
         });
