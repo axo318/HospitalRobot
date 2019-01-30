@@ -14,13 +14,13 @@ public class ReceptionistMenuActivity extends AppCompatActivity {
     }
 
     public void goToScheduleActivity(View view) {
-        /*Intent intent = new Intent(ReceptionistMenuActivity.this, ScheduleActivity.class);
-        ReceptionistMenuActivity.this.startActivity(intent);*/
+        Intent intent = new Intent(ReceptionistMenuActivity.this, ScheduleActivity.class);
+        ReceptionistMenuActivity.this.startActivity(intent);
     }
 
     public void goToAppointmentActivity(View view) {
-        /*Intent intent = new Intent(ReceptionistMenuActivity.this, AppointmentActivity.class);
-        ReceptionistMenuActivity.this.startActivity(intent);*/
+        Intent intent = new Intent(ReceptionistMenuActivity.this, ReceptionistAppListActivity.class);
+        ReceptionistMenuActivity.this.startActivity(intent);
     }
 
     public void goToSignInActivity(View view) {
