@@ -118,7 +118,7 @@
         app:layout_constraintVertical_bias="0.904" />
 
     <Spinner
-        android:id="@+id/spinnerDepartment"
+        android:id="@+id/spinnerDoctor"
         android:layout_width="176dp"
         android:layout_height="37dp"
         android:layout_marginBottom="8dp"
@@ -133,7 +133,7 @@
         app:layout_constraintVertical_bias="0.358" />
 
     <Spinner
-        android:id="@+id/spinnerDoctor"
+        android:id="@+id/spinnerDepartment"
         android:layout_width="176dp"
         android:layout_height="37dp"
         android:layout_marginBottom="8dp"
