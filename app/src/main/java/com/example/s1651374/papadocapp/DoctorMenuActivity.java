@@ -19,8 +19,8 @@ public class DoctorMenuActivity extends AppCompatActivity {
     }
 
     public void goToAppointmentActivity(View view) {
-        /*Intent intent = new Intent(ReceptionistMenuActivity.this, AppointmentActivity.class);
-        ReceptionistMenuActivity.this.startActivity(intent);*/
+        Intent intent = new Intent(DoctorMenuActivity.this, DoctorAppListActivity.class);
+        DoctorMenuActivity.this.startActivity(intent);
     }
 
     public void goToSignInActivity(View view) {

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -141,8 +142,19 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!(appointment[0] == "-") && !(appointment[1] == "-") && !(appointment[2] == "-") && !(appointment[3] == "-") ) {
                     //send appointment away to be logged
+
+                    //Check if patient in database
+                    EditText name = findViewById(R.id.nameEdit);
+                    name.setText("");
+                    EditText dob = findViewById(R.id.dobEdit);
+                    dob.setText("");
                     times.remove(appointment[3]);
                     populatespinnerTime(times);
+
+                    docs.setVisibility(View.GONE);
+                    datesS.setVisibility(View.GONE);
+                    timesS.setVisibility(View.GONE);
+
 
                     if (times.size() == 1) {
                         dates.remove(appointment[2]);
