@@ -68,7 +68,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void userLogin(View view) {
-        if (TextUtils.isEmpty(emailField.getText().toString()) &&
+        // This code has been commented out to make the app work for demo1
+        /*if (TextUtils.isEmpty(emailField.getText().toString()) &&
                 TextUtils.isEmpty(passwordField.getText().toString())) {
             emailField.setError("Required");
             passwordField.setError("Required");
@@ -86,6 +87,14 @@ public class SignInActivity extends AppCompatActivity {
         else {
             // This is where the user will be able to sign into an existing account via whichever
             // method ends up being chosen.  For now it takes them to the Main Menu.
+            Intent intent = new Intent(SignInActivity.this, ReceptionistMenuActivity.class);
+            SignInActivity.this.startActivity(intent);
+        }*/
+        if (emailField.getText().toString().equals("doctor") || emailField.getText().toString().equals("Doctor")) {
+            Intent intent = new Intent(SignInActivity.this, DoctorMenuActivity.class);
+            SignInActivity.this.startActivity(intent);
+        }
+        else if (emailField.getText().toString().equals("receptionist") || emailField.getText().toString().equals("Receptionist")) {
             Intent intent = new Intent(SignInActivity.this, ReceptionistMenuActivity.class);
             SignInActivity.this.startActivity(intent);
         }
