@@ -1,10 +1,12 @@
 package com.example.s1651374.papadocapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,12 +24,23 @@ public class MyAdapterDoc extends RecyclerView.Adapter<MyAdapterDoc.MyViewHolder
         private TextView currency;
         private TextView value;
         private TextView colorCode;
+        private Button viewResponse;
 
         public MyViewHolder(final View itemView) {
             super(itemView);
             colorCode = (TextView) itemView.findViewById(R.id.colorCode);
             currency = (TextView) itemView.findViewById(R.id.currency);
             value = (TextView) itemView.findViewById(R.id.value);
+            viewResponse = (Button) itemView.findViewById(R.id.viewResponse);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), PatientAnswersActivity.class));
+                }
+            });
+
+
         }
     }
 
@@ -62,6 +75,15 @@ public class MyAdapterDoc extends RecyclerView.Adapter<MyAdapterDoc.MyViewHolder
         } else {
             holder.colorCode.setBackgroundColor(Color.parseColor("#fdf496"));
         }
+
+//        holder.viewResponse.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                itemView.getContext().startActivity(new Intent(itemView.getContext(), PatientInfoActivity.class));
+//            }
+//        });
+
+
 
     }
 

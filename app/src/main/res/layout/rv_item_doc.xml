@@ -74,7 +74,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/deposit"
+                        android:id="@+id/viewResponse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
