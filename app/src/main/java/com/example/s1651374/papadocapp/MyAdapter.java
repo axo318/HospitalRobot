@@ -1,5 +1,6 @@
 package com.example.s1651374.papadocapp;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 super(itemView);
                 currency = (TextView) itemView.findViewById(R.id.currency);
                 value = (TextView) itemView.findViewById(R.id.value);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        itemView.getContext().startActivity(new Intent(itemView.getContext(), PatientInfoActivity.class));
+                    }
+                });
             }
+
+
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
@@ -53,6 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             // - replace the contents of the view with that element
             holder.currency.setText(mDataset[position]);
             holder.value.setText(mDataset2[position]);
+
 
         }
 
