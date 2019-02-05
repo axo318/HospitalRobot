@@ -38,14 +38,6 @@ public class SignInActivity extends AppCompatActivity {
         emailField.setText("");
         passwordField.setText("");
 
-        Button docButton = findViewById(R.id.docButton);
-        docButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, PatientInfoActivity.class);
-                startActivity(intent);
-            }
-        });
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 

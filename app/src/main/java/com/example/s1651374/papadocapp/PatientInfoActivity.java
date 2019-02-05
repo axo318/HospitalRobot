@@ -24,7 +24,7 @@ public class PatientInfoActivity extends AppCompatActivity {
 
     // Raspberry pi internal address and port
     public static final int SERVERPORT = 9999;
-    public static String SERVER_IP = "192.168.105.146";
+    public static String SERVER_IP = "192.168.105.102";
 
     private ClientThread clientThread;
     private Thread thread;
@@ -67,7 +67,7 @@ public class PatientInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.PInfo_Button1) {
-                    connectAndSend("hi");
+                    connectAndSend("start");
                 }
             }
         });
