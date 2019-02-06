@@ -59,7 +59,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         populatespinnerDep();
 
-        Spinner deps = findViewById(R.id.spinnerDepartment);
+        final Spinner deps = findViewById(R.id.spinnerDepartment);
         final Spinner docs = findViewById(R.id.spinnerDoctor);
         final Spinner datesS = findViewById(R.id.spinnerDate);
         final Spinner timesS = findViewById(R.id.spinnerTime);
@@ -150,6 +150,8 @@ public class ScheduleActivity extends AppCompatActivity {
                     dob.setText("");
                     times.remove(appointment[3]);
                     populatespinnerTime(times);
+
+                    deps.setSelection(0);
 
                     docs.setVisibility(View.GONE);
                     datesS.setVisibility(View.GONE);

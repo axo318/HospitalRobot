@@ -12,23 +12,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DoctorAppListActivity">
+        <activity android:name=".SignInActivity"
+            android:label="Sign in">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReceptionistMenuActivity" />
-        <activity android:name=".PatientInfoActivity" />
+        <activity android:name=".ReceptionistMenuActivity"
+            android:label="Receptionist Menu"/>
+        <activity android:name=".PatientInfoActivity"
+            android:label="Patient Information"/>
         <activity
             android:name=".ScheduleActivity"
             android:label="Schedule Appointment" />
-        <activity android:name=".DoctorMenuActivity" />
-        <activity android:name=".QuestionsActivity" />
-        <activity android:name=".PatientAnswersActivity" />
-        <activity android:name=".SignInActivity"></activity>
-        <activity android:name=".ReceptionistAppListActivity"></activity>
+        <activity android:name=".DoctorMenuActivity"
+            android:label="Doctor menu"/>
+        <activity android:name=".QuestionsActivity"
+            android:label="Add/Remove Questions"/>
+        <activity android:name=".PatientAnswersActivity"
+            android:label="Patient Papadoc Answers"/>
+        <activity android:name=".DoctorAppListActivity"
+            android:label="View Appointments"></activity>
+        <activity android:name=".ReceptionistAppListActivity"
+            android:label="View Appointments"></activity>
     </application>
 
 </manifest>

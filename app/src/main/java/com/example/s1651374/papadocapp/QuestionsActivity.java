@@ -54,7 +54,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 } else {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
-                    builder.setTitle("Title");
+                    builder.setTitle("Type the question text here");
 
 // Set up the input
                     final EditText input = new EditText(QuestionsActivity.this);
@@ -63,7 +63,7 @@ public class QuestionsActivity extends AppCompatActivity {
                     builder.setView(input);
 
 // Set up the buttons
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             questions.add(input.getText().toString());

@@ -47,7 +47,7 @@ public class PatientAnswersActivity extends AppCompatActivity {
         // Here we will initialise the patient and time info possibly from shared preferences
         // For now it will be manually populated
 
-        patient = "Ronald Ronaldson";
+        patient = "John Smith";
         app_time = "14:30";
 
         // The TextFields can now be populated with these Strings
