@@ -7,19 +7,22 @@ class Command():
         self.current_path = []
 
         # All predetermined locations
+        # REDO
         self.officeA = ['L','L','L','L','L']
 
     def dealWithCommand(self, temp_command):
-        command_list = temp_command.split(" ")
-        pre = command_list[0]
+        # New non-none is found so update the active
+        if(temp_command != None):
+            print(temp_command)
+            command_list = temp_command.split(" ")
+            pre = command_list[0]
 
-        if(pre == "stop"):
-            self.active_command = pre
-        elif(pre == "start"):
-            self.active_command = pre
-            self.current_path = self.getPath(command_list[1])
-
-        #return self.active_command
+            if(pre == "stop"):
+                self.active_command = pre
+            elif(pre == "start"):
+                self.active_command = pre
+                self.current_path = self.getPath(command_list[1])
+        return self.getActiveCommand()
 
     def getActiveCommand(self):
         return self.active_command

@@ -13,16 +13,21 @@ class Communicator:
         self.on = True
 
     def listen(self):
+        self.sock.settimeout(0.2) #----------
         self.sock.listen(5)
         threading.Thread(target = self.listenForNextCommand, args=()).start()
 
     def listenForNextCommand(self):
         while self.on:
-            conn, addr = self.sock.accept()
-            data = conn.recv(1024)
-            extracted = (str(data))[1:]
-            finalCommand = extracted.replace("'", "")
-            self.currentCommand = finalCommand
+            try:
+                conn, addr = self.sock.accept()
+                data = conn.recv(1024)
+                extracted = (str(data))[1:]
+                finalCommand = extracted.replace("'", "")
+                self.currentCommand = finalCommand
+            except socket.timeout:
+                continue
+        print("Thread exiting")
 
     def getCurrentCommand(self):
         #If there is a command, then make sure to delete it before return
@@ -32,6 +37,12 @@ class Communicator:
             return temp
         else:
             return None
+
+    # Kill the server thread and exit gracefully
+    def die(self):
+        print("got in die")
+        self.on = False
+        print(str(self.on))
 
 ######### --FOR TESTING-- ##########
 # if __name__ == "__main__":
