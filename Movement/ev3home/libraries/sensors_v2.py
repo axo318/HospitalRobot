@@ -9,6 +9,7 @@ import ev3dev.ev3 as ev3
 
 # Sets the sensor mode
 required_mode = 'RGB-RAW'
+ultrasonic_mode = 'US-DIST-CM'
 
 class ev3Sensors:
     # Initializes robot right and left motors
@@ -16,9 +17,14 @@ class ev3Sensors:
         self.colorSensorL = ColorSensor("in1")
         self.colorSensorM = ColorSensor("in2")
         self.colorSensorR = ColorSensor("in3")
+        self.ultrasonicSensor = UltrasonicSensor("in4")
+        self.ultrasonicSensor.mode = ultrasonic_mode
         self.colorSensorL.mode = required_mode
         self.colorSensorM.mode = required_mode
         self.colorSensorR.mode = required_mode
+
+    def getDistance():
+        return self.ultrasonicSensor.value()     
 
     # Returns all readings in a list
     def getColourValues(self):
