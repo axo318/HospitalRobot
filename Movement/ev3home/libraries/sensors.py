@@ -23,8 +23,20 @@ class ev3Sensors:
         self.colorSensorM.mode = required_mode
         self.colorSensorR.mode = required_mode
 
-    def getDistance():
-        return self.ultrasonicSensor.value()     
+    def getSensorData(self):
+        [red_vals,green_vals,blue_vals] = self.getColourValues()
+        [left,mid,right] = red_vals
+        # Get current color
+        red_avg = sum(red_vals)/float(len(red_vals))
+        green_avg = sum(green_vals)/float(len(green_vals))
+        blue_avg = sum(blue_vals)/float(len(blue_vals))
+        avg = (left + mid + right)/3
+        color = self.detectedColor(red_avg,green_avg,blue_avg)
+
+        return color,red_vals
+
+    def getDistance(self):
+        return self.ultrasonicSensor.value()
 
     # Returns all readings in a list
     def getColourValues(self):
