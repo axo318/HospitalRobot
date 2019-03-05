@@ -22,6 +22,8 @@ class Command():
             elif(pre == "start"):
                 self.active_command = pre
                 self.current_path = self.getPath(command_list[1])
+            elif(pre == "test"):
+                self.active_command = pre
         return self.getActiveCommand()
 
     def getActiveCommand(self):

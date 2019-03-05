@@ -32,3 +32,7 @@ class RobotMotors:
         print('motors waiting..')
         self.leftMotor.run_direct(duty_cycle_sp=0)
         self.rightMotor.run_direct(duty_cycle_sp=0)
+
+    def moveAngle(self, angle):
+        self.rightMotor.run_to_rel_pos(position_sp=angle, speed_sp=900)
+        self.leftMotor.run_to_rel_pos(position_sp=-angle, speed_sp=900)

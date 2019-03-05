@@ -26,6 +26,7 @@ class ev3Sensors:
     def getSensorData(self):
         [red_vals,green_vals,blue_vals] = self.getColourValues()
         [left,mid,right] = red_vals
+
         # Get current color
         red_avg = sum(red_vals)/float(len(red_vals))
         green_avg = sum(green_vals)/float(len(green_vals))
@@ -34,6 +35,23 @@ class ev3Sensors:
         color = self.detectedColor(red_avg,green_avg,blue_avg)
 
         return color,red_vals
+
+    def calibrate(self, motors):
+        step=3
+        angle=250
+        calibration_data = []
+        motors.moveAngle(-angle)
+
+        for i in range(0,2*angle,step):
+            motors.moveAngle(step)
+            color, vals = self.getSensorData()
+            calibration_data.append(vals)
+            print(vals)
+
+        #left_readings = [x[0] for x in calibration_data].sort()
+        #mid_readings = [x[1] for x in calibration_data].sort()
+        #right_readings = [x[2] for x in calibration_data].sort()
+
 
     def getDistance(self):
         return self.ultrasonicSensor.value()

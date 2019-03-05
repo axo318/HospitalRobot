@@ -15,11 +15,17 @@ import math
 f_a = 100
 f_m = -0.1
 f_c = 0
+#f_a = 38
+#f_m = -0.04
+#f_c = 61 
 
 # Reverse Function Variables#
 r_a = 200
 r_m = -0.02
 r_c = -50
+#r_a = 200
+#r_m = -0.025
+#r_c = -20
 
 # Maximum and minimum power limits
 maximum = 99

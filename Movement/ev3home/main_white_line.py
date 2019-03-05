@@ -11,17 +11,17 @@ from libraries import function, motors, sensors, communications, commands
 def operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors):
 
     # Robot is going straight
-    if((left+right)/2 > 260 and mid < 40):
+    if((left+right)/2 < 150 and mid > 290):
         error = 0
         course = 0
 
     # Trying to refind the lost line
-    elif((left+right)/2 > 170 and mid > 150):
+    elif((left+right)/2 < 100 and mid < 70):
         course = prevcourse
 
     # Correct course to center the line
     else:
-        error = -1*left + right
+        error = left + (-1*right)
 
         derivative = error - lasterror
         lasterror = error
