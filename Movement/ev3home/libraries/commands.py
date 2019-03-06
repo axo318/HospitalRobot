@@ -8,7 +8,7 @@ class Command():
 
         # All predetermined locations
         # REDO
-        self.officeA = ['L','L','L','L','L']
+        self.officeA = ['U','L','U','L','U']
 
     def dealWithCommand(self, temp_command):
         # New non-none is found so update the active
@@ -24,6 +24,7 @@ class Command():
                 self.current_path = self.getPath(command_list[1])
             elif(pre == "test"):
                 self.active_command = pre
+
         return self.getActiveCommand()
 
     def getActiveCommand(self):

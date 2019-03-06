@@ -12,26 +12,45 @@ import math
 # c -> function offset
 
 # Forward Function Variables#
-f_a = 100
-f_m = -0.1
-f_c = 0
-#f_a = 38
-#f_m = -0.04
-#f_c = 61 
+slow_f_a = 100
+slow_f_m = -0.1
+slow_f_c = 0
+
+fast_f_a = 38
+fast_f_m = -0.04
+fast_f_c = 61
 
 # Reverse Function Variables#
-r_a = 200
-r_m = -0.02
-r_c = -50
-#r_a = 200
-#r_m = -0.025
-#r_c = -20
+slow_r_a = 200
+slow_r_m = -0.02
+slow_r_c = -50
+
+fast_r_a = 200
+fast_r_m = -0.025
+fast_r_c = -20
 
 # Maximum and minimum power limits
 maximum = 99
 minimum = -99
 
-def getOutput(courseValue):
+def getOutput(courseValue, fast):
+    f_a = slow_f_a
+    f_m = slow_f_m
+    f_c = slow_f_c
+
+    r_a = slow_r_a
+    r_m = slow_r_m
+    r_c = slow_r_c
+
+    if(fast):
+        f_a = fast_f_a
+        f_m = fast_f_m
+        f_c = fast_f_c
+
+        r_a = fast_r_a
+        r_m = fast_r_m
+        r_c = fast_r_c
+
     # Going left (positive value)
     if courseValue >= 0:
        rightside = -1*((f_a/(1 + (math.exp(float(f_m) * courseValue)))) + f_c)

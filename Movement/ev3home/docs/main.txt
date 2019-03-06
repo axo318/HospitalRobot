@@ -1,0 +1,9 @@
+Options:
+  Usage: python3 main.py [options]
+
+  DEFAULT:    Follows white line on darker background and no logs created
+
+  --black:    Follow black line on light back ground
+
+  --debug     Creates log files with all info
+  

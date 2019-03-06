@@ -24,7 +24,7 @@ def operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motor
         error = -1*left + right
 
         derivative = error - lasterror
-        lasterror = error
+        lasterror = error(left+right)/2 < 150 and mid > 290
         integral = float(0.3) * integral + error
         course = (float(0.4)*error + float(0.3)*derivative + float(0.02)*integral)
 
@@ -97,7 +97,6 @@ def main():
             # RED is seen only once
             if (color == 'red'):
                 #print("-----Red was detected-----")
-                avg = (left + mid + 300)/3
                 red_seen = True
 
                 print(counter)

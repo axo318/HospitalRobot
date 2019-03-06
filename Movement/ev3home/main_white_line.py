@@ -6,9 +6,9 @@
 #
 import sys
 import time
-from libraries import function, motors, sensors, communications, commands
+from libraries import function, motors, sensors, communications, commands, logger
 
-def operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors):
+def operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors, counter, cur_logger):
 
     # Robot is going straight
     if((left+right)/2 < 150 and mid > 290):
@@ -28,9 +28,17 @@ def operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motor
         integral = float(0.3) * integral + error
         course = (float(0.4)*error + float(0.3)*derivative + float(0.02)*integral)
 
-    leftside, rightside = function.getOutput(course)
+    leftside, rightside = function.getOutput(course, FAST)
     cur_motors.moveDirect(leftside, rightside)
     prevcourse = course
+
+    # Log everything
+    sensorVals = [left,mid,right]
+    motorVals = [leftside,rightside]
+    counterVals = [counter,office[counter]]
+
+    cur_logger.log(course, sensorVals, motorVals, counterVals)
+
     return prevcourse
 
 def timeDif():
@@ -42,9 +50,11 @@ def timeDif():
 
 def checkCurrentIntersection(office, counter, left, right, red_seen):
     if(office[counter] == 'L'):
-        right = 300
+        right = 55
     elif(office[counter] == 'R'):
-        left = 300
+        left = 55
+    elif(office[counter] == 'S'):
+        right = left = 55
     else:
         red_seen = False
 
@@ -66,11 +76,15 @@ def main():
     com_server.listen()
     command_dealer = commands.Command()
 
+    # Initialize logger class
+    cur_logger = logger.Logger(DEBUG)
+
     # Initialize navigation variables
     red_time = current_time = 0
     red_seen = False
     lasterror = error = integral = prevcourse = counter = course = 0
     office = []
+    previous_command = ""
 
     try:
         # Start operation loop
@@ -82,33 +96,35 @@ def main():
             # Act on the active_command
             if(iteration_command == "stop"):
                 cur_motors.stop()
+                if(previous_command != "stop"):
+                    cur_logger.kill()
                 counter = 0
+                previous_command = "stop"
                 continue
+
             elif(iteration_command == "start"):
                 office = command_dealer.getCurrentPath()
+                if(previous_command != "start"):
+                    cur_logger.initialize(office)   # Init logging function
+                previous_command = "start"
+
             elif(iteration_command == "test"):
                 cur_sensors.calibrate(cur_motors)
                 command_dealer.dealWithCommand("stop")
+                previous_command = "test"
                 continue
 
-            # Get sensor values
+            # Get countersensor values
             color,[left,mid,right] = cur_sensors.getSensorData()
 
             # RED is seen only once
             if (color == 'red'):
-                #print("-----Red was detected-----")
-                avg = (left + mid + 300)/3
                 red_seen = True
-
-                print(counter)
-                print(office[counter])
 
                 # While in red stay here
                 while(color == 'red'):
                     color,[left,mid,right] = cur_sensors.getSensorData()
-                    left, right, red_seen = checkCurrentIntersection(office, counter, left, right, red_seen)
-                    prevcourse = operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors)
-                print("out of here")
+                    prevcourse = 0
                 counter+=1
 
             # Yellow is seen
@@ -119,12 +135,11 @@ def main():
             # Otherwise do what was being done before
             else:
                 if(red_seen):
-                    print("Going: ", office[counter])
                     left, right, red_seen = checkCurrentIntersection(office, counter, left, right, red_seen)
-                    prevcourse = operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors)
+                    prevcourse = operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors, counter, cur_logger)
                 else:
                     red_time = current_time
-                    prevcourse = operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors)
+                    prevcourse = operate(left, mid, right, lasterror, integral, prevcourse, office, cur_motors, counter, cur_logger)
 
     # If user kills program
     except KeyboardInterrupt:
@@ -134,9 +149,24 @@ def main():
 
 ######### --MAIN-- ##########
 if __name__ == "__main__":
+    args = sys.argv[1:]
 
     global AFTER_TIMER
     global PREV_TIMER
+
+    # Check if debugging is on
+    global DEBUG
+    if "--debug" in args:
+        DEBUG = True
+    else:
+        DEBUG = False
+
+    # Check if fast speed is needed
+    global FAST
+    if "--fast" in args:
+        FAST = True
+    else:
+        FAST = False
 
     PREV_TIMER = time.clock_gettime(time.CLOCK_MONOTONIC)
     print("Ev3 is starting...")

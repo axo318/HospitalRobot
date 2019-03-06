@@ -65,7 +65,7 @@ class ev3Sensors:
 
     def detectedColor(self,red_avg,green_avg,blue_avg):
         # Choose closest color
-        if 205<red_avg<300  and 15<green_avg<50 and 10<blue_avg<60:
+        if 160<red_avg<300  and 15<green_avg<60 and 10<blue_avg<60:
             return 'red'
         elif 20<red_avg<60 and 65<green_avg< 140 and 20<blue_avg<100:
             return 'green'
