@@ -34,5 +34,5 @@ class RobotMotors:
         self.rightMotor.run_direct(duty_cycle_sp=0)
 
     def uTurn(self):
-        self.rightMotor.run_to_rel_pos(position_sp=1080, speed_sp=900)
-        self.leftMotor.run_to_rel_pos(position_sp=-1080, speed_sp=900)
+        self.rightMotor.run_to_rel_pos(position_sp=540, speed_sp=900)
+        self.leftMotor.run_to_rel_pos(position_sp=-540, speed_sp=900)
