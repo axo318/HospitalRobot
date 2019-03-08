@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python3
 #
 #   Main Script
@@ -117,6 +116,11 @@ def main():
             # Get countersensor values
             color,[left,mid,right] = cur_sensors.getSensorData()
 
+            # Obstacle detection
+            while (cur_sensors.getDistance() < 500):
+                cur_sensors.getDistance()
+                cur_motors.stop()
+
             # RED is seen only once
             if (color == 'red'):
                 red_seen = True
@@ -171,4 +175,4 @@ if __name__ == "__main__":
     PREV_TIMER = time.clock_gettime(time.CLOCK_MONOTONIC)
     print("Ev3 is starting...")
     print("\n")
-    main()
+main()
