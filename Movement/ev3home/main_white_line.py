@@ -1,3 +1,4 @@
+
 #! /usr/bin/env python3
 #
 #   Main Script
@@ -94,9 +95,9 @@ def main():
 
             # Act on the active_command
             if(iteration_command == "stop"):
-                cur_motors.stop()
                 if(previous_command != "stop"):
                     cur_logger.kill()
+                    cur_motors.stop()
                 counter = 0
                 previous_command = "stop"
                 continue
@@ -112,11 +113,12 @@ def main():
                 command_dealer.dealWithCommand("stop")
                 previous_command = "test"
                 continue
-
+            timeDif()
             # Get countersensor values
             color,[left,mid,right] = cur_sensors.getSensorData()
-
+            
             # Obstacle detection
+            #print(cur_sensors.getDistance())    
             while (cur_sensors.getDistance() < 500):
                 cur_sensors.getDistance()
                 cur_motors.stop()
@@ -175,4 +177,4 @@ if __name__ == "__main__":
     PREV_TIMER = time.clock_gettime(time.CLOCK_MONOTONIC)
     print("Ev3 is starting...")
     print("\n")
-main()
+    main()
