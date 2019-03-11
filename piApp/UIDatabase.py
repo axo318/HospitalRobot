@@ -12,105 +12,141 @@
 
 from Tkinter import *
 import MySQLdb
+import os
 
 class Application(Frame):
 
-    def createWidgets(self):
-
+    def startUP(self):
         self.MAIN = Label(self)
         self.MAIN["text"] = "PapaDoc"
-        self.MAIN["font"] = ("Helvetica", 40)
-        self.MAIN.pack()
+        self.MAIN["font"] = "Ariel 30"
+        self.MAIN.grid(row=0, column=0 , columnspan = 2)
 
-        self.q = patientQs[self.questionNum]
+        self.START = Button(self)
+        self.START["bg"] = "blue"
+        self.START["fg"] = "white"
+        self.START["font"] = "Ariel 30"
+        self.START["text"] = "Click here to start",
+        self.START["command"] = self.check
+        self.START.config(height = 5 , width = 5)
+        self.START.grid(row=2,column=0)
+    def check(self):
+        check = os.stat("piAppStart.txt").st_size == 0
+        while(check):
+            check = os.stat("piAppStart.txt").st_size == 0
+        if(check == False):
+            self.startAsk()
+
+    def startAsk(self):
+        self.destroygrid()
+        self.patientQs = self.getData()
+        self.createWidgets(self.patientQs)
+
+
+    def createWidgets(self,patientQs):
+
+        self.q = self.patientQs[self.questionNum]
         self.QUESTION = Label(self)
         self.QUESTION["text"] = self.q
-        self.QUESTION["font"] = ("Helvetica", 26)
-        self.QUESTION.pack()
+        self.QUESTION["font"] = "Ariel 40"
+        self.QUESTION.grid(row=1,column=0, columnspan =4)
 
         self.YES = Button(self)
         self.YES["bg"] = "green"
-        self.YES["height"] = "10"
-        self.YES["width"] = "15"
         self.YES["fg"] = "white"
-        self.YES["text"] = "YES"
-        self.YES["font"] = ("Helvetica", 24)
+        self.YES["font"] = "Ariel 30"
+        self.YES["text"] = "YES",
         self.YES["command"] = self.patientYES
-        self.YES.pack({"side": "left"})
+        self.YES.config(height = 5 , width = 5)
+        self.YES.grid(row=2,column=0)
 
         self.NO = Button(self)
         self.NO["bg"] = "red"
-        self.NO["height"] = "10"
-        self.NO["width"] = "15"
         self.NO["fg"] = "white"
+        self.NO["font"] = "Ariel 30"
         self.NO["text"] = "NO"
-        self.NO["font"] = ("Helvetica", 24)
         self.NO["command"] = self.patientNO
-        self.NO.pack({"side":"left"})
+        self.NO.config(height = 5 , width = 5)
+        self.NO.grid(row = 2, column = 1)
+
+    def destroygrid(self):
+        list = self.grid_slaves()
+        for l in list:
+            l.destroy()
 
 
     def patientYES(self):
-        patientRs[patientQs[self.questionNum]] = "Yes"
+        patientRs[self.patientQs[self.questionNum]] = "Yes"
         self.questionNum += 1
-        if self.questionNum >(len(data)-1):
-            self.quit()
-        self.q = patientQs[self.questionNum]
+        if self.questionNum >(len(self.patientQs)-1):
+            self.finishedQuestions()
+        self.q = self.patientQs[self.questionNum]
         self.QUESTION["text"] = self.q
 
     def patientNO(self):
-        patientRs[patientQs[self.questionNum]] = "No"
+        patientRs[self.patientQs[self.questionNum]] = "No"
         self.questionNum += 1
-        if self.questionNum >(len(data)-1):
-            self.quit()
-        self.q = patientQs[self.questionNum]
+        if self.questionNum >(len(self.patientQs)-1):
+            self.finishedQuestions()
+        self.q = self.patientQs[self.questionNum]
         self.QUESTION["text"] = self.q
 
+    def finishedQuestions(self):
+        #self.destroygrid()
+        self.pushData()
+
+        self.QUIT = Button(self)
+        self.QUIT["bg"] = "green"
+        self.QUIT["fg"] = "white"
+        self.QUIT["font"] = "Ariel 30"
+        self.QUIT["text"] = "QUIT",
+        self.QUIT["command"] = self.quit
+        self.QUIT.config(height = 5 , width = 15)
+        self.QUIT.grid(row=1,column=0)
+
+    def getData(self):
+
+        db = MySQLdb.connect("localhost","root","password","sdp17" )
+        cursor = db.cursor()
+        department = "Cardiology"
+        self.patient = "Tony"
+        self.appdate = "2019-10-10"
+        # execute SQL query using execute() method.
+        cursor.execute("SELECT Question from Questions WHERE Department = '%s'" % (department))
+
+        # Fetch a single row using fetchone() method.
+        data = cursor.fetchall()
+        db.close
+        return data
+
+    def pushData(self):
+        db = MySQLdb.connect("localhost","root","password","sdp17" )
+        cursor = db.cursor()
+        i = 0
+        # execute SQL query using execute() method.
+        for row in patientRs:
+                r = patientRs[self.patientQs[i]]
+                q = self.patientQs[i]
+                i = i+1
+                cursor.execute("INSERT INTO Responses (patient, appDate, question, response) VALUES (%s, %s, %s, %s)", (self.patient, self.appdate, q, r))
+        db.commit()
+        # Fetch a single row using fetchone() method.
+        cursor.execute("UPDATE Appointments SET answered='Yes' WHERE (patient=%s and appDate=%s)", (self.patient, self.appdate))
+        # disconnect from server
+        db.commit()
+        db.close
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.questionNum = 0
         master.title("PapaDoc")
         self.pack()
-        self.createWidgets()
+        self.startUP()
 
-db = MySQLdb.connect("localhost","root","password","sdp17" )
-cursor = db.cursor()
-department = sys.argv[1]
-patient = sys.argv[2]
-appdate = sys.argv[3]
-# execute SQL query using execute() method.
-cursor.execute("SELECT Question from Questions WHERE Department = '%s'" % (department))
-
-# Fetch a single row using fetchone() method.
-data = cursor.fetchall()
-print data
-
-# disconnect from server
-db.close
-
-patientQs = data
 patientRs = dict()
 
 root = Tk()
-root.attributes('-fullscreen',True)
+#root.attributes('-fullscreen',True)
 app = Application(master=root)
 app.mainloop()
 root.destroy()
-
-db = MySQLdb.connect("localhost","root","password","sdp17" )
-cursor = db.cursor()
-i = 0
-# execute SQL query using execute() method.
-for row in patientRs:
-        r = patientRs[data[i]]
-        q = data[i]
-        i = i+1
-        cursor.execute("INSERT INTO Responses (patient, appDate, question, response) VALUES (%s, %s, %s, %s)", (patient, appdate, q, r))
-db.commit()
-# Fetch a single row using fetchone() method.
-cursor.execute("UPDATE Appointments SET answered='Yes' WHERE (patient=%s and appDate=%s)", (patient, appdate))
-# disconnect from server
-db.commit()
-db.close
-
-self.quit();
